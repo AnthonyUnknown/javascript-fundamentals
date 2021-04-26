@@ -1,3 +1,4 @@
+
 describe('Example', () => {
   it('Should multiply 2 numbers', () => {
     expect(/* multiply(1, 2) */).toBe(2);
