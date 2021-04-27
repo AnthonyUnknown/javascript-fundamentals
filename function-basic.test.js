@@ -45,8 +45,8 @@ describe("Function basic", () => {
   });
 
   test("Should find argument at N position", () => {
-    function fn() {
-      return arguments[1];
+    function fn(N, ...args) {
+      return arguments[N]
     }
     // Write function fn. First argument should be position (N) of argument
     expect(fn(1)).toBe(undefined);
@@ -58,12 +58,9 @@ describe("Function basic", () => {
   });
 
   it("Should return string of wrapped arguments", () => {
-    function wrap(a,b) {
-      
-      
-    }
-    expect(/* wrap("a", "b") */).toBe("|a|b|");
-    expect(/* wrap("a", "b", "c", "d", "e") */).toBe("|a|b|c|d|e|");
+      //all.map((item) => ("|" + item + "|"));                                      //idk how to do "||" for both sides, maybe remove commas with an array????????????
+    expect(wrap("a", "b")).toBe("|a|b|");
+    expect(wrap("a", "b", "c", "d", "e")).toBe("|a|b|c|d|e|");
   });
 
   test("Should use Function as argument", () => {
@@ -71,16 +68,20 @@ describe("Function basic", () => {
     // First is calculation function
     // Second is argument for calculation function
     // Return value is message 'Result is ###'
-
-    function add10(a) {
-      return a + 10;
+    function logCalculationResult(b, a) {
+        return "Result is " + b(a);
     }
-
+    function add10(a) {
+    return a + 10;
+    }
     function mul3(a) {
       return a * 3;
-    }
+     }
+    
+    
 
-    expect(/* logCalculationResult(add10, 7) */).toBe("Result is 17");
-    expect(/* logCalculationResult(mul3, 7) */).toBe("Result is 21");
+
+    expect(logCalculationResult(add10, 7)).toBe("Result is 17");
+    expect(logCalculationResult(mul3, 7)).toBe("Result is 21");
   });
 });
