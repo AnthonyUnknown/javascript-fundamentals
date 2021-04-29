@@ -59,7 +59,16 @@ describe("Function basic", () => {
 
   it("Should return string of wrapped arguments", () => {
       //all.map((item) => ("|" + item + "|"));                                      //idk how to do "||" for both sides, maybe remove commas with an array????????????
-    expect(wrap("a", "b")).toBe("|a|b|");
+    function wrap(...args) {
+      let str = "|";
+      for(let arg of args) {
+        str += `${arg}|`;
+      }
+      return str;
+    }
+    
+    
+      expect(wrap("a", "b")).toBe("|a|b|");
     expect(wrap("a", "b", "c", "d", "e")).toBe("|a|b|c|d|e|");
   });
 

@@ -50,7 +50,7 @@ describe("Numbers", () => {
       } else if (a % 3 == 0) {
         return false;
       } else {
-        return false;
+        return true;
       }
     }
     expect(isPrime(7)).toBe(true);
@@ -120,20 +120,21 @@ describe("Numbers", () => {
 });
 
   test("Should get the largest integer less than or equal to a given number.  ", () => {
+    let numb = 1.2;
     expect(Math.floor(1)).toBe(1);
     expect(Math.floor(1.2)).toBe(1);
     expect(Math.floor(1.8)).toBe(1);
-
+    expect(Number(numb.toFixed())).toBe(1);
     // TODO: Write additional tests
   });
 
   test("Should return the base10 representation of a binary string", function() {
-    expect(11000000).toBe(192);
+    expect(Number(parseInt(11000000, 2).toString(10))).toBe(192);
 
   });
 
   test("Should convert an eight-bit string number to a binary string", function() {
-    expect(/* ??? 127 */).toBe("1010111");
-    expect(/* ??? 65 */).toBe("110101");
+    expect(parseInt(127, 8).toString(2)).toBe("1010111");
+    expect(parseInt(65, 8).toString(2)).toBe("110101");
   });
 });
