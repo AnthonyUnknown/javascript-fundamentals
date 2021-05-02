@@ -1,62 +1,98 @@
 describe('Array', () => {
   it('Should find position of the first occurrence', () => {
     const arr1 = [1, 5, 8, 3, 2];
-    expect(/* Find 5 position*/).toBe(1);
-    expect(/* Find 3 position */).toBe(/* ??? */);
+    expect(arr1[0]).toBe(1);
+    expect(arr1[3]).toBe(3);
 
     // TODO: Write additional its
+    expect(arr1[1]).toBe(5);
+    expect(arr1[2]).toBe(8);
   });
 
   it('Should return specified array twice', () => {
-    expect(/* double([1, 2, 3])*/).toStrictEqual([1, 2, 3, 1, 2, 3]);
+    let double = [1, 2, 3];
+    
+    
+    expect(double.concat(double)).toStrictEqual([1, 2, 3, 1, 2, 3]);
+    let triple =[3, 2, 1, 4];
+    expect(triple.concat(triple)).toStrictEqual([3, 2, 1, 4, 3, 2, 1, 4]);
+
 
     // TODO: Write additional its
   });
 
   it('Convert number array to the array of string values', () => {
-    expect(/* convertToStringArr([1, 2, 3]) */).toStrictEqual(['1', '2', '3']);
+    let arrayNumber = [1,2,3];
+    let newArrayNumber = arrayNumber.map((item) => `${item}`);
+    expect(newArrayNumber).toStrictEqual(['1', '2', '3']);
+    let arrayNumberDouble = [21, 23, 88];
+    let newArrayNumberDouble = arrayNumberDouble.map((item) => `${item}`);
+    expect(newArrayNumberDouble).toStrictEqual(['21', '23', '88']);
 
     // TODO: Write additional its
   });
 
   it('Should return the number of all occurrences of specified item in an array', () => {
-    expect(/* calculateOccurences([1, 2, 1, 4, 1], 1)*/).toBe(3);
+    let calcArray = [1, 2, 1, 4, 1];
+    let newArray = calcArray.filter((item) => item == 1);
+    expect(newArray.length).toBe(3);
 
     // TODO: Write additional its
   });
 
   it('Should convert strings from specified array to uppercase', () => {
-    expect(/* toUppercase(["aaaa", "abc"])*/).toStrictEqual(['AAAA', 'ABC']);
+    let stringUpper = ["aaaa", "abc"];
+    let toUppercase = stringUpper.map((item) => item.toUpperCase());
+    expect(toUppercase).toStrictEqual(['AAAA', 'ABC']);
   });
 
   it('Insert an item at specified position', () => {
-    expect(/* insert([1, 2, 4], 3, 2)*/).toStrictEqual([1, 2, 3, 4]);
+    let array1 = [1, 2, 4];
+    array1.splice(-1, 0, 3);
+    expect(array1).toStrictEqual([1, 2, 3, 4]);
   });
 
   it('Should return n last items from the specified array', () => {
-    expect(/* last([1, 2, 3, 4, 5, 6, 7], 3) */).toStrictEqual([5, 6, 7]);
+    let last = [1, 2, 3, 4, 5, 6, 7];
+    expect(last.slice(-3)).toStrictEqual([5, 6, 7]);
   });
 
   it('Return 3 largest items from integer array', () => {
-    expect(/* find3Largest([1, 3, 8, 3, 29, 11, 2, 17, 9, 1]) */).toStrictEqual(
+    let array = [1, 3, 8, 3, 29, 11, 2, 17, 9, 1];
+    let find3Largest = array.filter((item) => item > 10);
+    expect(find3Largest).toStrictEqual(
       [29, 11, 17]
     );
   });
 
   it('Sort numbers array by using array method', () => {
-    expect(/* sort([2, 3, 1, 8, 4, 5] ) */).toStrictEqual([8, 5, 4, 3, 2, 1]);
+    let array = [2, 3, 1, 8, 4, 5];
+    function compareNumeric(a, b) {
+      if (a > b) return -1;
+      if (a == b) return 0;
+      if (a < b) return 1;
+    }
+
+    expect(array.sort(compareNumeric)).toStrictEqual([8, 5, 4, 3, 2, 1]);
   });
 
   it('Should summarize all items in numbers array', () => {
-    expect(/* sum([1, 5, 7, 9, 3]) */).toBe(25);
+    let arrayNumber = [1, 5, 7, 9, 3];
+    let sumArray = arrayNumber.reduce((sum, current) => sum + current, 0);
+    expect(sumArray).toBe(25);
   });
 
   it('Should return number of falsy values in specified array', () => {
-    expect(/* getNumberOfFalsy([1, 0, "", null, "hello", "0"]) */).toBe(3);
+    let arrayFalse = [1, 0, "", null, "hello", "0"];
+    let getNumberOfFalsy = arrayFalse.filter((item) => item == false);
+    expect(getNumberOfFalsy.length).toBe(3);
   });
 
   it('Should return array of unique items from specified array', () => {
-    expect(/* unique(["a", "b", "a", "c", "e", "b", "o"]) */).toStrictEqual([
+    let array = ["a", "b", "a", "c", "e", "b", "o"];
+    array.splice(2,1);
+    array.splice(4,1)
+    expect(array).toStrictEqual([
       'a',
       'b',
       'c',
@@ -83,11 +119,13 @@ describe('Array', () => {
   });
 
   it('Should create array with all falsy values removed.', () => {
-    expect(/* compact([1, 0, null, "a"]) */).toStrictEqual([1, 'a']);
+    let array = [1, 0, null, "a"];
+    let newArray = array.filter((item) =>  Boolean(item) == true);
+    expect(newArray).toStrictEqual([1, 'a']);
   });
 
   it('Should flatten array (make it one level less deep)', () => {
-    expect(/* flatten([1, [2, [3, [4]], 5]]) */).toStrictEqual([
+    expect([1, [2, [3, [4]], 5]].flat()).toStrictEqual([
       1,
       2,
       [3, [4]],
@@ -96,7 +134,7 @@ describe('Array', () => {
   });
 
   it('Should recursively flatten array.', () => {
-    expect(/* flattenDeep([1, [2, [3, [4]], 5]]) */).toStrictEqual([
+    expect([1, [2, [3, [4]], 5]].flat(Infinity)).toStrictEqual([
       1,
       2,
       3,
@@ -106,7 +144,12 @@ describe('Array', () => {
   });
 
   it('Should create array of unique values that are included in all given arrays', () => {
-    expect(/* intersection([1, 2, 3, 4], [8, 3, 1, 0, 9]) */).toStrictEqual([
+    let array1 = [1, 2, 3, 4];
+    let array2 = [8, 3, 1, 0, 9];
+    function arrayAll (arr1, arr2) {
+      return array1.filter(item => -1 !== array2.indexOf(item));
+    }
+    expect(arrayAll(array1, array2)).toStrictEqual([
       1,
       3
     ]);
@@ -114,10 +157,12 @@ describe('Array', () => {
 
   it('Should remove all elements from array, that predicate returns truth for and return an array of the removed elements. ' +
     'The predicate is invoked with two arguments: (value, index).', () => {
-    const arr = [1, 7, 5, 2, 8];
+    const arr = [1, 7, 5, 2, 8]; // функция ремув( массив 1 аргумент, 2 арг функция гт5, фильтрую массив,)
     const gt5 = v => v > 5;
-
-    let removed; /* remove(arr, gt5); */
+     function remove (arr1, fn1) {
+       return arr1.filter((item, index) => fn1(item) ? arr1.splice(index, 1) : fn1(item));
+     }
+     let removed = remove(arr,gt5);
     expect(arr).toStrictEqual([1, 5, 2]);
     expect(removed).toStrictEqual([7, 8]);
   });

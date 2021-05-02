@@ -10,25 +10,37 @@ describe('Function and closure', () => {
       return x * 3;
     }
 
-    function compose(){
-        //TODO: implement
+    function compose(func1, func2) {
+      return function compose1(x) {
+        return func1(func2(x));
+      }
     }
+    
 
-    expect( compose(  add5, mul3)(2) ).toBe(add5(mul3(2)));
+    expect(compose(add5, mul3)(2)).toBe(add5(mul3(2)));
   });
 
   test('Should create new user with unique number identifier using increment', () => {
-    function createUser(){
-       //TODO: implement
+    let counter = 0;
+    function createUser(name){
+        counter++;
+        return {
+          id: counter,
+          name: name
+
+        }
     }
-    expect( createUser("Ivan") ).toStrictEqual({ name: 'Ivan', id: 1 });
-    expect( createUser("Petr").name ).toBe('Petr');
-    expect( createUser("Anna").id ).toBe(3);
+    expect(createUser("Ivan")).toStrictEqual({ name: 'Ivan', id: 1 });
+    expect(createUser("Petr").name).toBe('Petr');
+    expect(createUser("Anna").id).toBe(3);
   });
 
   test('Should create function that each time return new value incremented by incrementValue and start from start', () => {
     function createIncrementor(start, incrementValue) {
-      // TODO: implement
+      let counter = 0;
+      return function (a) {
+          return a = Number(start) + Number(counter++) * Number(incrementValue);
+      }
     }
 
 
@@ -39,25 +51,27 @@ describe('Function and closure', () => {
   });
 
   test('Fix me. Function creation inside cycle. Find 2 different solutions', () => {
-    function solution1(from, to) {
-      // TODO: fix me
+
+    function solution2(from, to) {
+       //TODO: fix me
       const result = [];
       for (var i = from; i <= to; i++) {
-        result.push(function() {
-          return i;
-        });
+        result.push(() => i)
       }
       return result;
     }
 
-    function solution2(from, to) {
+    function solution1(from, to) {
       // TODO: fix me
       const result = [];
-      for (var i = from; i <= to; i++) {
-        result.push(function() {
-          return i;
-        });
+      function pushArray(number) {
+        return function () {
+            return number;
+        }
       }
+      for (let i = from; i <= to; i++) {
+        result.push(pushArray(i));
+        }
       return result;
     }
 
@@ -88,7 +102,7 @@ describe('Function and closure', () => {
         // DON'T change me
         a += 2;
         return a;
-      };
+      }
     }
 
     const fn1 = foo(getCallbackFn);
@@ -121,8 +135,12 @@ describe('Function and closure', () => {
   });
 
   test('Should create multiply function', () => {
+    
+    
     function multiply(a){
-      // TODO: implement
+      return function func1(x) {
+        return a * x;
+      }
     }
     let mul5 = multiply(5);
     let mul20 = multiply(20);
