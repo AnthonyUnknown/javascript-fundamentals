@@ -1,12 +1,12 @@
 describe('Array', () => {
   it('Should find position of the first occurrence', () => {
     const arr1 = [1, 5, 8, 3, 2];
-    expect(arr1[0]).toBe(1);
-    expect(arr1[3]).toBe(3);
+    expect(arr1.indexOf(5)).toBe(1);
+    expect(arr1.indexOf(3)).toBe(3);
 
     // TODO: Write additional its
-    expect(arr1[1]).toBe(5);
-    expect(arr1[2]).toBe(8);
+    expect(arr1.indexOf(1)).toBe(0);
+    expect(arr1.indexOf(2)).toBe(4);
   });
 
   it('Should return specified array twice', () => {
@@ -41,15 +41,20 @@ describe('Array', () => {
   });
 
   it('Should convert strings from specified array to uppercase', () => {
+    function stringUp (string1) {
+      return string1.map((item) => item.toUpperCase());
+    }
     let stringUpper = ["aaaa", "abc"];
-    let toUppercase = stringUpper.map((item) => item.toUpperCase());
-    expect(toUppercase).toStrictEqual(['AAAA', 'ABC']);
+    expect(stringUp(stringUpper)).toStrictEqual(['AAAA', 'ABC']);
   });
 
   it('Insert an item at specified position', () => {
+    function insertItem (arr, pos, item) {
+      arr.splice(pos, 0, item);
+      return arr
+    }
     let array1 = [1, 2, 4];
-    array1.splice(-1, 0, 3);
-    expect(array1).toStrictEqual([1, 2, 3, 4]);
+    expect(insertItem([1, 2, 4], 2, 3)).toStrictEqual([1, 2, 3, 4]);
   });
 
   it('Should return n last items from the specified array', () => {

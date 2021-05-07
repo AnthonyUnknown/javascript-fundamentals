@@ -85,9 +85,9 @@ describe('Function and closure', () => {
   });
 
   test('Should works as expected. Fix me', () => {
-    let a = 0;
     function foo(callback) {
-      function inner() {
+        let a = 10
+        function inner() {
         // DON"T CHANGE ME
         a++;
         return a;
@@ -98,6 +98,7 @@ describe('Function and closure', () => {
       };
     }
     function getCallbackFn() {
+      let a = 0;
       return function callbackFn() {
         // DON'T change me
         a += 2;
@@ -105,8 +106,8 @@ describe('Function and closure', () => {
       }
     }
 
-    const fn1 = foo(getCallbackFn);
-    const fn2 = foo(getCallbackFn);
+    const fn1 = foo(getCallbackFn()); 
+    const fn2 = foo(getCallbackFn());
 
     expect(fn1.fromInner()).toBe(11);
     expect(fn2.fromInner()).toBe(11);
@@ -119,9 +120,13 @@ describe('Function and closure', () => {
   });
 
   test('Should use private property', () => {
-    // Function should return object with 2 methods: setValue and getValue.
-    function createTestObject(){
-       // TODO: implement
+    // Function should return object with 2 methods: setValue and getValue. // set/get функция которая возвращает объект с сет и гет
+    function createTestObject() {
+      let value;
+        return {
+          setValue: (newValue) => value = newValue,
+          getValue: () =>  value
+        }
     }
 
     let obj1 = createTestObject();
@@ -131,7 +136,7 @@ describe('Function and closure', () => {
     obj2.setValue('obj2');
     expect(obj2.getValue()).toBe('obj2');
     expect(obj1.getValue()).toBe(10);
-    expect(Object.keys(obj1).length).toBe(2);
+    expect(Object.keys(obj1).length).toBe(2); // object.keys - возвращает массив ключей 
   });
 
   test('Should create multiply function', () => {
@@ -156,11 +161,12 @@ describe('Function and closure', () => {
       return 'test';
     }
 
-    function calcCall(func) {
-      // TODO: implement
-      return [func, () => 0]; // CHANGE TOO
+    function calcCall(func) { // увеличение счетчика callfn, getfn - возвращает значение счетчика, счетчик в калк 0, второй элемент возвращает, func дожен увеличивать счетчик на единцу
+      let count = 0;
+      
+      
+      
     }
-
     const [callFn, getFnCount] = calcCall(fn);
     const [callFn2, getFn2Count] = calcCall(fn);
 
@@ -176,7 +182,7 @@ describe('Function and closure', () => {
     expect(getFn2Count()).toBe(2);
   });
 
-  test('Should cache the result of function with single argument', () => {
+  test('Should cache the result of function with single argument', () => { // скопировать
     function memoize(fn) {
       // TODO: implement
     }
@@ -198,7 +204,7 @@ describe('Function and closure', () => {
     expect(invokesCount).toBe(2);
   });
 
-  test('logger method should log start and end of call of the standard js function', () => {
+  test('logger method should log start and end of call of the standard js function', () => { // замык
     // DON'T CHANGE.
     const logger = {
       messages: [],
@@ -216,7 +222,6 @@ describe('Function and closure', () => {
     }
 
     function logMe(fn) {
-      // TODO: implement
     }
 
 
@@ -234,7 +239,8 @@ describe('Function and closure', () => {
     }
 
     function once(fn) {
-      // TODO: implement
+
+      
     }
 
     const initialize = once(init);
@@ -247,7 +253,9 @@ describe('Function and closure', () => {
 
   test('Creates a function that invokes func with partials prepended to the arguments it receives. ', () => {
     function partial(fn, arg1) {
-      // TODO: implement
+      return function (d) {
+        return fn(arg1, d);
+      }
     }
 
 

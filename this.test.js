@@ -9,8 +9,11 @@ describe('THIS', () => {
       return this.msg + ' ' + this.msg;
     }
 
-    expect(/* ??? */).toBe('aaa aaa');
-    expect(/* ??? */).toBe('bbb bbb');
+    a.f = example;
+    b.f = example;
+
+    expect(a.f()).toBe('aaa aaa');
+    expect(b.f()).toBe('bbb bbb');
   });
 
   it('Should create function  connected with specific this', () => {
@@ -23,11 +26,14 @@ describe('THIS', () => {
     const bob = { name: 'Bob', get: 50 };
 
     // TODO: fix
-    const getTomName = fn;
-    const getBobName = fn;
+    const getTomName = tom;
+    const getBobName = bob;
 
-    expect(getTomName()).toBe('Tom');
-    expect(getBobName()).toBe('Bob');
+    getTomName.f = fn;
+    getBobName.f = fn;
+
+    expect(getTomName.f()).toBe('Tom');
+    expect(getBobName.f()).toBe('Bob');
   });
 
   test('Function from object method. Fix me', () => {
@@ -43,8 +49,10 @@ describe('THIS', () => {
     };
 
     // TODO: FIX ME
-    const sayHello = person.sayHello;
+   function hi() {
+      return person.sayHello()
+   } 
 
-    expect(sayHello()).toBe(person.sayHello());
+    expect(hi()).toBe(person.sayHello());
   });
 });
